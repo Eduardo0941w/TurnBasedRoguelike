@@ -3,37 +3,27 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
+    Rigidbody2D rb;
+    Vector2 movement;
 
-    public enum PlayerState
+    void Start()
     {
-        Idle,
-        Move,
-        Attack,
-        Rest
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    public PlayerState currentState;
-
-    private void Update()
+    void Update()
     {
-        if (!GameManager.Instance.CanPlayerMove())
-            return;
-
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-
-        Vector2 direction = new Vector2(x, y);
-
-        if (direction.magnitude > 1)
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        if (movement.magnitude >1)
         {
-            direction = direction.normalized;
-            currentState = PlayerState.Move;
+            movement = movement.normalized;
         }
-        else
-        {
-            currentState = PlayerState.Idle;
-        }
+        
+    }
 
-        transform.position += (Vector3)(direction * speed * Time.deltaTime);
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 }
