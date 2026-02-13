@@ -21,15 +21,17 @@ public class GameManager : MonoBehaviour
     public PartyManager partyManager;
     public RunManager runManager;
 
-    private void Awake()
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            Debug.Log("GameManager creado");
         }
         else
         {
+            Debug.Log("GameManager duplicado destruido");
             Destroy(gameObject);
         }
     }
