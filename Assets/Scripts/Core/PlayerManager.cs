@@ -4,12 +4,26 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
-    public int maxHP = 100;
-    public int currentHP = 100;
-    public float baseDamage = 10f;
+    public PlayerData currentPlayer;
+    public int currentHP;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("PlayerManager creado");
+        }
+        else
+        {
+            Debug.Log("PlayerManager duplicado destruido");
+            Destroy(gameObject);
+        }
+    }
+    public void SetCharacter(PlayerData data)
+    {
+        currentPlayer = data;
+        currentHP = data.maxHP;
     }
 }
