@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Game State")]
     public GameMode currentGameMode = GameMode.Exploration;
+
+    [Header("Scene Names")]
+    public string explorationSceneName = "ExplorationScene";
+    public string combatSceneName = "CombatScene";
 
     [Header("Managers")]
     public PlayerManager playerManager;
@@ -41,12 +46,31 @@ public class GameManager : MonoBehaviour
         SetGameMode(GameMode.Exploration);
     }
 
-    // ---- GAME MODE CONTROL ----
+    public void EnterCombat()
+    {
+        SetGameMode(GameMode.Combat);
+        SceneManager.LoadScene(combatSceneName);
+    }
+
+    public void ExitCombat(bool victory)
+    {
+        if (victory)
+        {
+            Debug.Log("Volviendo a exploración tras victoria.");
+            SetGameMode(GameMode.Exploration);
+            SceneManager.LoadScene(explorationSceneName);
+        }
+        else
+        {
+            Debug.Log("Derrota. Volviendo al Lobby...");
+            SetGameMode(GameMode.Exploration);
+            SceneManager.LoadScene("LobbyScene");
+        }
+    }
     public void SetGameMode(GameMode newMode)
     {
         currentGameMode = newMode;
 
-        // Aquí puedes notificar a otros sistemas
         Debug.Log("Game mode changed to: " + newMode);
     }
 

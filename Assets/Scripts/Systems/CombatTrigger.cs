@@ -10,6 +10,7 @@ public class CombatTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             SceneManager.LoadScene(combatSceneName);
+            GameManager.Instance.EnterCombat();
         }
     }
 }

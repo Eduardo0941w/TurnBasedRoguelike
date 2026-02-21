@@ -9,17 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("PlayerManager creado");
-        }
-        else
-        {
-            Debug.Log("PlayerManager duplicado destruido");
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
     public void SetCharacter(PlayerData data)
     {
