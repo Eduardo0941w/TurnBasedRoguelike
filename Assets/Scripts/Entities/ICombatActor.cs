@@ -4,6 +4,7 @@ public interface ICombatActor
 {
     string GetName();
     int GetSpeed();
+    int GetHP();
     IEnumerator TakeTurn(ICombatActor target, float multiplier);
     void TakeDamage(int amount);
     bool IsDead();

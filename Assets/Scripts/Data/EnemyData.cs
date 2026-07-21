@@ -8,4 +8,12 @@ public class EnemyData : ScriptableObject
     public int damage;
     public int defense;
     public int speed;
+    public enum movementtype
+    {
+        ground,
+        fly,
+        underground,
+        teleport,
+        jump
+    }
 }

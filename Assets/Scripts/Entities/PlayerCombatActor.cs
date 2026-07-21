@@ -14,6 +14,7 @@ public class PlayerCombatActor : ICombatActor
 
     public string GetName() => data.characterName;
     public int GetSpeed() => data.speed;
+    public int GetHP() => currentHP;
 
     public IEnumerator TakeTurn(ICombatActor target, float multiplier)
     {

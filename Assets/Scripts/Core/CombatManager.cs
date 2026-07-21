@@ -33,6 +33,7 @@ public class CombatManager : MonoBehaviour
         if (enemies.Count == 0 && testEnemyData != null)
         {
             enemies.Add(new EnemyCombatActor(testEnemyData));
+            enemies.Add(new EnemyCombatActor(testEnemyData));
         }
 
         
@@ -71,14 +72,14 @@ public class CombatManager : MonoBehaviour
             
             if (enemies.TrueForAll(e => e.IsDead()))
             {
-                Debug.Log("<color=green>¡VICTORIA! Todos los enemigos derrotados.</color>");
+                Debug.Log("<color=green>Â¡VICTORIA! Todos los enemigos derrotados.</color>");
                 combatActive = false;
                 EndCombat(true);
             }
            
             else if (playerActor.IsDead())
             {
-                Debug.Log("<color=red>DERROTA... El jugador ha caído.</color>");
+                Debug.Log("<color=red>DERROTA... El jugador ha caÃ­do.</color>");
                 combatActive = false;
                 EndCombat(false);
             }
@@ -89,7 +90,7 @@ public class CombatManager : MonoBehaviour
     {
         if (victory)
         {
-            Debug.Log("Volviendo a exploración...");
+            Debug.Log("Volviendo a exploraciÃ³n...");
 
            
         }
@@ -118,11 +119,39 @@ public class CombatManager : MonoBehaviour
         }
 
    
-        ICombatActor target = (enemies.Count > 0) ? enemies[0] : null;
+        ICombatActor target = null;
+
+        if (chosen == ActionType.Attack || chosen == ActionType.Skill)
+        {
+            List<EnemyCombatActor> aliveEnemies = enemies.FindAll(e => !e.IsDead());
+            if (aliveEnemies.Count > 0)
+            {
+                Debug.Log("SELECT TARGET:");
+                for (int i = 0; i < aliveEnemies.Count; i++)
+                {
+                    Debug.Log((i + 1) + ": " + aliveEnemies[i].GetName() + " (HP: " + aliveEnemies[i].GetHP() + ")");
+                }
+
+                bool targetSelected = false;
+                while (!targetSelected)
+                {
+                    for (int i = 0; i < aliveEnemies.Count; i++)
+                    {
+                        if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                        {
+                            target = aliveEnemies[i];
+                            targetSelected = true;
+                            break;
+                        }
+                    }
+                    yield return null;
+                }
+            }
+        }
 
         if (playerActor == null)
         {
-            Debug.LogError("Error: playerActor es nulo. Asegúrate de asignarlo en el Inspector o Start.");
+            Debug.LogError("Error: playerActor es nulo. AsegÃºrate de asignarlo en el Inspector o Start.");
             yield break;
         }
 

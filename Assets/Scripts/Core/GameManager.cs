@@ -56,15 +56,15 @@ public class GameManager : MonoBehaviour
     {
         if (victory)
         {
-            Debug.Log("Volviendo a exploración tras victoria.");
+            Debug.Log("Volviendo a exploraciÃ³n tras victoria.");
             SetGameMode(GameMode.Exploration);
             SceneManager.LoadScene(explorationSceneName);
         }
         else
         {
-            Debug.Log("Derrota. Volviendo al Lobby...");
+            Debug.Log("Derrota. Volviendo a exploracin...");
             SetGameMode(GameMode.Exploration);
-            SceneManager.LoadScene("LobbyScene");
+            SceneManager.LoadScene(explorationSceneName);
         }
     }
     public void SetGameMode(GameMode newMode)

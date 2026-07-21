@@ -6,7 +6,7 @@ public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance;
 
-    [Header("Referencias UI")]
+    [Header("Reference UI")]
     public GameObject panelMinijuego; 
     public RectTransform cursor;     
     public float anchoBarra = 200f;   
@@ -32,8 +32,8 @@ public class MinigameManager : MonoBehaviour
                 float precision = Mathf.Abs(oscilacion);
 
                 if (precision < 0.15f) multiplicador = 2.0f;      
-                else if (precision < 0.5f) multiplicador = 1.2f;  
-                else multiplicador = 0.8f;                        
+                else if (precision < 0.5f) multiplicador = 1.5f;  
+                else multiplicador = 1f;                        
 
                 pulsado = true;
             }
